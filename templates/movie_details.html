@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}{{ movie.title }}'s Given-Details
+{% endblock %}
+
+{% block body %}
+{{ movie.title }}
+<p>
+  {{ movie.overview }}
+</p>
+
+{% if session.get('user_email') %}
+<h2>Give the film a rating, 1-5!!</h2>
+<form action="/movies/{{ movie.movie_id }}/ratings" method="POST">
+  <p>
+    Ratings!:
+    <select name="rating">
+      <option value="">Select rating</option>
+      {% for num in range(10) %}
+        <option value="{{ num }}">{{ num }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p><input type="submit"></p>
+</form>
+{% endif %}
+<img src="{{ movie.poster_path }}">
+{% endblock %}
